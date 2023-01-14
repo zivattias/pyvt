@@ -58,7 +58,7 @@ class Analyzer:
     def cache_dir(self):
         return self._cache_dir
 
-    def check_cache(self, url: str) -> bool | KeyError:
+    def check_cache(self, url: str) -> bool:
         """
         Accesses self._cache and returns a boolean value according to self._age
         """
@@ -91,7 +91,7 @@ class Analyzer:
             return APIError('ClientError', response.status_code)
         return APIError('ServerError', response.status_code)
 
-    def analyze(self, url: str) -> None | APIError | KeyError:
+    def analyze(self, url: str) -> Result | APIError:
         """
         Analyze a base64 URL and return its data from VT API.
         """
@@ -133,7 +133,7 @@ class Analyzer:
         accuracy = f"{max_val / total_values_sum * 100:.2f}%"
         return max_key, accuracy
 
-    def full_scan(self, url: str) -> None | APIError:
+    def full_scan(self, url: str) -> Result | APIError:
         scan_id = self.scan(url)
 
         headers = {

@@ -147,8 +147,8 @@ class Analyzer:
                 if response.json()["data"]["attributes"]["status"] == 'completed':
                     break
                 else:
-                    response = requests.get(url=api_url(f"/analyses/{scan_id}"), headers=headers)
                     time.sleep(5)
+                    response = requests.get(url=api_url(f"/analyses/{scan_id}"), headers=headers)
 
             with self._lock:
                 self._cache[url] = Result(url, response.json()["data"]["attributes"]["date"],

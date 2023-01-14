@@ -19,18 +19,20 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--age', default=182,
                         help='declare cache max age (days), default = 182')
 
-    args = parser.parse_args(['https://telx.com/', 'https://facebook.com', '-a', '1', '-v'])
+    args = parser.parse_args(['https://whatsapp.com/', 'https://facebook.com', '-a', '1', '-v'])
 
     analyzer = Analyzer(urls=args.url, apikey=args.apikey, age=args.age,
                         cache_dir='./cache/')
 
     with ThreadPoolExecutor() as executor:
+        futures = list()
         for url in args.url:
             print(f"Processing URL {url}...") if args.verbose else None
-            futures = [executor.submit(analyzer.full_scan if args.scan else analyzer.analyze, url)]
+            futures.append(executor.submit(analyzer.full_scan if args.scan else analyzer.analyze, url))
 
-    for future in futures:
-        future.add_done_callback(analyzer.get_result)
+        for future in as_completed(futures):
+            print(f"Processed URL {future.result().url}") if args.verbose else None
+            print(future.result())
 
     with open(os.path.join(analyzer.cache_dir, 'cache.pickle'), 'wb') as cache:
         pickle.dump(analyzer.cache, cache)

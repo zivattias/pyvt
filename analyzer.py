@@ -113,18 +113,20 @@ class Analyzer:
                 else:
                     epoch = response.json()["data"]["attributes"]["last_analysis_date"]
                     if datetime.utcnow() - datetime.utcfromtimestamp(epoch) > self._age:
-                        self.full_scan(url)
+                        return self.full_scan(url)
                     else:
                         with self._lock:
                             self._cache[url] = Result(url, response.json()["data"]["attributes"]["last_analysis_date"],
                                                       self.get_url_reputation(
                                                           response.json()["data"]["attributes"]["last_analysis_stats"]),
                                                       'api')
-                return self._cache[url]
+                        return self._cache[url]
 
             if 400 <= response.status_code <= 499:
                 return APIError('ClientError', response.status_code)
             return APIError('ServerError', response.status_code)
+
+        return self._cache[url]
 
     @staticmethod
     def get_url_reputation(stats: dict) -> tuple:
@@ -162,7 +164,3 @@ class Analyzer:
         if 400 <= response.status_code <= 499:
             return APIError('ClientError', response.status_code)
         return APIError('ServerError', response.status_code)
-
-    @staticmethod
-    def get_result(future: Future):
-        print(future.result())

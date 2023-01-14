@@ -1,20 +1,15 @@
+import os
 import base64
 import pickle
 import time
-from result import *
 import requests
 from datetime import datetime, timedelta
-import os
-import atexit
 from threading import Lock
-from concurrent.futures import Future
-
-from version import __version__
+from result import *
 from error import APIError
 
 _API_URL = 'https://www.virustotal.com'
 _ENDPOINT_PREFIX = '/api/v3'
-_VERSION = __version__
 
 __all__ = [
     'Analyzer'

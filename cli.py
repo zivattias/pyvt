@@ -1,5 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from analyzer import *
+from version import __version__
 import argparse
 import pickle
 import os
@@ -7,7 +8,7 @@ import os
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="URL Reputation Check, Powered by VirusTotal's API",
                                      description="The program allows you to check URL(s)",
-                                     epilog="By Ziv Attias")
+                                     epilog=f"By Ziv Attias, v{__version__}")
     parser.add_argument('url', nargs='*',
                         help='one or more URLs, separated by a whitespace')
     parser.add_argument('-k', '--apikey',

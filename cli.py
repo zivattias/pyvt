@@ -20,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--age', default=182,
                         help='declare cache max age (days), default = 182')
 
-    args = parser.parse_args(['https://whatsapp.com/', 'https://facebook.com', '-a', '1', '-v'])
+    args = parser.parse_args()
 
     analyzer = Analyzer(urls=args.url, apikey=args.apikey, age=args.age,
                         cache_dir='./cache/')

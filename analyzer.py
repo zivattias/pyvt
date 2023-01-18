@@ -1,12 +1,13 @@
-import os
 import base64
+import os
 import pickle
 import time
-import requests
 from datetime import datetime, timedelta
 from threading import Lock
-from result import *
+
+import requests
 from error import APIError
+from result import *
 
 _API_URL = 'https://www.virustotal.com'
 _ENDPOINT_PREFIX = '/api/v3'

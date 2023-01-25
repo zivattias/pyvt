@@ -37,7 +37,8 @@ class Analyzer:
         try:
             self._apikey = apikey or os.environ["VT_KEY"]
         except KeyError as e:
-            print("API key is missing")
+            print(f"KeyError: {e} is missing, terminated execution")
+            exit(0)
         self._age = timedelta(days=int(age))
         self._cache: dict[str: Result] = ...
 

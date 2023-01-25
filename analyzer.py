@@ -34,7 +34,10 @@ def api_url(suffix: str) -> str:
 class Analyzer:
     def __init__(self, urls, cache_dir, apikey, age=182):
         self._urls = urls
-        self._apikey = apikey or os.environ["VT_KEY"]
+        try:
+            self._apikey = apikey or os.environ["VT_KEY"]
+        except KeyError as e:
+            print("API key is missing")
         self._age = timedelta(days=int(age))
         self._cache: dict[str: Result] = ...
 

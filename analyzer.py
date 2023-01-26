@@ -36,10 +36,10 @@ class Analyzer:
         self._urls = urls
         try:
             self._apikey = apikey or os.environ["VT_KEY"]
-        except KeyError as e:
-            print(f"KeyError: {e} is missing, terminated execution")
+            self._age = timedelta(days=int(age))
+        except (KeyError, ValueError) as error:
+            print(error)
             exit(0)
-        self._age = timedelta(days=int(age))
         self._cache: dict[str: Result] = ...
 
         # Cache mapping: {url: Result()}

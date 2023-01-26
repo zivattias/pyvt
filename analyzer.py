@@ -37,9 +37,8 @@ class Analyzer:
         try:
             self._apikey = apikey or os.environ["VT_KEY"]
             self._age = timedelta(days=int(age))
-        except (KeyError, ValueError) as error:
-            print(error)
-            exit(0)
+        except (KeyError, ValueError):
+            raise APIError('Either not provided API key at all or cache age is not a valid integer', 400)
         self._cache: dict[str: Result] = ...
 
         # Cache mapping: {url: Result()}

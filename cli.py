@@ -1,9 +1,10 @@
+import argparse
+import os
+import pickle
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
 from analyzer import *
 from version import __version__
-import argparse
-import pickle
-import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="URL Reputation Check, Powered by VirusTotal's API",

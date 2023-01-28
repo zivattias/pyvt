@@ -34,8 +34,7 @@ def api_url(suffix: str) -> str:
 
 
 class Analyzer:
-    def __init__(self, urls, cache_dir, apikey, age=182):
-        self._urls = urls
+    def __init__(self, cache_dir: str, apikey: str, age: int=182):
         try:
             self._apikey = apikey or os.environ["VT_KEY"]
             self._age = timedelta(days=int(age))

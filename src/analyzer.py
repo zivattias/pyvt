@@ -7,8 +7,8 @@ from threading import Lock
 
 import requests
 
-from error import APIError
-from result import *
+from utils.error import APIError
+from src.result.result import Result
 
 _API_URL = 'https://www.virustotal.com'
 _ENDPOINT_PREFIX = '/api/v3'

@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     analyzer = Analyzer(urls=args.url, apikey=args.apikey, age=args.age,
                         cache_dir='./cache/')
-
+    
     with ThreadPoolExecutor() as executor:
         futures = list()
         for url in args.url:
